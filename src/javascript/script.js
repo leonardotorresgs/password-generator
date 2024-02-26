@@ -28,9 +28,8 @@ function getChartTypes() {
 function getPasswordSize() {
     const size = document.querySelector('#size').value;
     if(isNaN(size) || size < 4 || size > 128) {
-        alert('Tamanho inválido, digite um número entre 4 e 128');
+        message('Tamanho inválido, digite um número entre 4 e 128!', '#dc2626');
     }
-
     return size;
 }
 
@@ -49,13 +48,32 @@ function generatePassword(size, charTypes) {
     return passwordGeneratated;
 }
 
+function message(text, background) {
+    Toastify({
+        text: text,
+        duration: 2000,
+        style: {
+            background: background,
+            boxShadow: 'none'
+        }
+    }).showToast();
+}
+
 document.querySelector('#generate').addEventListener('click', function(){
     const size = getPasswordSize();
     const charTypes = getChartTypes();
 
+    if (!size) {
+        return;
+    }
+
+    if (!charTypes.length) {
+        message('Selecione pelo menos um tipo de caractere', '#dc2626');
+        return;
+    }
+
     const passwordGeneratated = generatePassword(size, charTypes);
 
     document.querySelector('#password_container').classList.add('show');
-
     document.querySelector('#password').textContent = passwordGeneratated;
 });
