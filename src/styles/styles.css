@@ -28,7 +28,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12;
+    gap: 12px;
 }
 
 #password_img {
